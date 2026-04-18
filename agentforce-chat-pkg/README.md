@@ -4,6 +4,18 @@ Salesforce Agentforce Employee Agent 기반의 Chat UI 컴포넌트 패키지입
 
 ---
 
+## 🚀 원클릭 설치
+
+| 환경 | 설치 링크 |
+|------|-----------|
+| **Production / Developer Org** | [▶ Install v1.0.0](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tIT000001ONqNYAW) |
+| **Sandbox** | [▶ Install v1.0.0 (Sandbox)](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tIT000001ONqNYAW) |
+
+> Unlocked Package ID: `04tIT000001ONqNYAW`
+> Package (0Ho) ID: `0HoIT000000blSu0AI`
+
+---
+
 ## 포함 컴포넌트
 
 ### Apex Classes

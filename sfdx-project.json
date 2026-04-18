@@ -16,5 +16,9 @@
   "name": "CDO",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "66.0"
+  "sourceApiVersion": "66.0",
+  "packageAliases": {
+    "Agentforce Employee Chat": "0HoIT000000blSu0AI",
+    "Agentforce Employee Chat@1.0.0-1": "04tIT000001ONqNYAW"
+  }
 }
