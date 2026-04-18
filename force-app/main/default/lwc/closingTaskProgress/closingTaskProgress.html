@@ -1,0 +1,169 @@
+<template>
+    <!-- Loading state -->
+    <template lwc:if={isLoading}>
+        <div class="slds-p-around_large slds-text-align_center">
+            <lightning-spinner alternative-text="로딩 중" size="medium"></lightning-spinner>
+            <p class="slds-m-top_small slds-text-body_regular">마감 태스크 데이터를 불러오는 중입니다.</p>
+        </div>
+    </template>
+
+    <!-- Error state -->
+    <template lwc:elseif={hasDataError}>
+        <div class="slds-p-around_medium">
+            <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                <span class="slds-assistive-text">오류</span>
+                <h2 class="slds-text-heading_small">데이터를 불러올 수 없습니다</h2>
+                <p class="slds-text-body_small slds-m-top_x-small">
+                    마감 태스크 진행 현황을 불러오는 중 오류가 발생했습니다. 페이지를 새로고침하거나 관리자에게 문의해 주세요.
+                </p>
+            </div>
+        </div>
+    </template>
+
+    <!-- Main content -->
+    <template lwc:else>
+    <lightning-layout class="slds-p-around_medium" multiple-rows>
+        <!-- Left Sidebar: Progress & Phase Navigation -->
+        <lightning-layout-item size="12" medium-size="4" large-size="4" class="slds-p-right_medium">
+            <article class="slds-card slds-card_boundary">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title slds-truncate">
+                                <span class="slds-text-heading_medium">전체 진행률</span>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-m-bottom_medium">
+                        <span class="progress-percent slds-text-heading_large slds-text-font_mono">
+                            {overallProgress.percent}%
+                        </span>
+                        <p class="slds-text-body_small slds-m-top_xx-small">
+                            {overallProgress.completed} / {overallProgress.total} 프로세스 완료
+                        </p>
+                    </div>
+                    <div class="slds-grid slds-wrap slds-gutters_xx-small slds-m-bottom_medium">
+                        <div class="slds-col slds-size_1-of-1">
+                            <span class="status-dot status-dot_completed" title="완료"></span>
+                            <span class="slds-text-body_small">완료: {overallProgress.completed}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1">
+                            <span class="status-dot status-dot_in-progress" title="진행중"></span>
+                            <span class="slds-text-body_small">진행중: {overallProgress.inProgress}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1">
+                            <span class="status-dot status-dot_pending" title="대기중"></span>
+                            <span class="slds-text-body_small">대기중: {overallProgress.pending}</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1">
+                            <span class="status-dot status-dot_error" title="에러"></span>
+                            <span class="slds-text-body_small">에러: {overallProgress.error}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">진행 현황</h3>
+                        <ul class="phase-list" role="list">
+                            <template for:each={phases} for:item="phase">
+                                <li
+                                    key={phase.id}
+                                    class="phase-item slds-p-vertical_x-small slds-p-horizontal_small slds-border_bottom slds-cursor_pointer"
+                                    class:phase-item_selected={phase.isSelected}
+                                    data-phase-id={phase.id}
+                                    onclick={handlePhaseSelect}
+                                    role="button"
+                                    tabindex="0"
+                                    onkeydown={handlePhaseKeydown}
+                                    aria-pressed={phase.isSelected}
+                                    aria-label={phase.ariaLabel}
+                                >
+                                    <span class="slds-text-body_regular">
+                                        Phase {phase.id}. {phase.label}
+                                    </span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </lightning-layout-item>
+
+        <!-- Right Content: Task Details -->
+        <lightning-layout-item size="12" medium-size="8" large-size="8">
+            <article class="slds-card slds-card_boundary">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title slds-truncate">
+                                <span class="slds-text-heading_medium">
+                                    Phase {selectedPhaseId}. {selectedPhase.label}
+                                </span>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="task-grid">
+                        <template for:each={selectedPhase.tasks} for:item="task">
+                            <div key={task.id} class="task-item-wrapper">
+                                <div
+                                    class="task-item slds-grid slds-wrap slds-grid_vertical-align-center slds-p-vertical_small"
+                                    data-task-id={task.id}
+                                    data-status={task.status}
+                                >
+                                    <div class="task-timeline">
+                                        <span
+                                            class="status-indicator status-indicator_{task.status}"
+                                            data-task-id={task.id}
+                                        ></span>
+                                    </div>
+                                    <div class="task-content slds-grow slds-grid slds-grid_vertical-align-center slds-wrap">
+                                        <span class="slds-text-body_regular slds-grow">
+                                            <span class="task-id">{task.id}</span> {task.label}
+                                        </span>
+                                        <template lwc:if={task.showBadge}>
+                                            <div class="slds-m-left_small task-badge-container">
+                                                <span
+                                                    class="task-badge task-badge_{task.status}"
+                                                    data-task-id={task.id}
+                                                    role={task.badgeRole}
+                                                    tabindex={task.badgeTabindex}
+                                                    onclick={handleTaskBadgeClick}
+                                                    onkeydown={handleTaskBadgeKeydown}
+                                                    aria-label={task.badgeAriaLabel}
+                                                >
+                                                    {task.statusLabel}
+                                                </span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                                <!-- Error message expandable section -->
+                                <template lwc:if={task.errorMessage}>
+                                    <template lwc:if={task.isErrorPanelVisible}>
+                                        <div
+                                            class="error-message-panel slds-m-left_medium slds-p-around_small slds-m-bottom_small"
+                                            role="region"
+                                            aria-label="에러 상세"
+                                            data-task-id={task.id}
+                                        >
+                                            <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                                                <span class="slds-assistive-text">오류</span>
+                                                <h2 class="slds-text-heading_small slds-m-bottom_x-small">
+                                                    에러 상세
+                                                </h2>
+                                                <p class="slds-text-body_small">{task.errorMessage}</p>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </article>
+        </lightning-layout-item>
+    </lightning-layout>
+    </template>
+</template>

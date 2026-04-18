@@ -1,0 +1,41 @@
+<template>
+    <lightning-button
+        label="Upload Contract"
+        variant="brand"
+        onclick={handleUploadClick}
+        class="upload-contract-btn"
+    ></lightning-button>
+
+    <template lwc:if={showModal}>
+        <section role="dialog"
+            tabindex="-1"
+            aria-modal="true"
+            aria-labelledby="upload-contract-modal-heading"
+            class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="upload-contract-modal-heading" class="slds-modal__title slds-hyphenate">
+                        Upload and Analyze an Insurance policy
+                    </h2>
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="닫기"
+                        onclick={handleCloseModal}
+                        aria-label="닫기">
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="닫기"
+                            size="small">
+                        </lightning-icon>
+                    </button>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-flow
+                        flow-api-name="Upload_and_Analyze_an_Insurance_policy"
+                        flow-finish-behavior="none"
+                        onstatuschange={handleFlowStatusChange}>
+                    </lightning-flow>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

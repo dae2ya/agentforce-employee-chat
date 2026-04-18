@@ -1,0 +1,70 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="utility:push">
+        <span slot="actions" class="target-badge" title="메시지를 받을 대상">
+            {targetBadgeLabel}
+        </span>
+
+        <div class="injector-layout">
+            <div class="role-bar">
+                <lightning-radio-group
+                    name="role"
+                    label="주입 모드"
+                    options={roleOptions}
+                    value={role}
+                    type="button"
+                    onchange={handleRoleChange}>
+                </lightning-radio-group>
+                <p class="role-hint">{roleHint}</p>
+            </div>
+
+            <template if:true={hasQuickActions}>
+                <div class="quick-actions">
+                    <span class="quick-actions-label">Quick Prompts</span>
+                    <div class="quick-actions-row">
+                        <template for:each={quickActions} for:item="qa">
+                            <button
+                                key={qa.id}
+                                type="button"
+                                class={qa.btnClass}
+                                data-message={qa.message}
+                                data-role={qa.role}
+                                title={qa.message}
+                                onclick={handleQuickAction}>
+                                {qa.label}
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <div class="composer">
+                <label class="composer-label" for="inject-input">
+                    직접 입력하여 주입 (Enter = 주입)
+                </label>
+                <textarea
+                    id="inject-input"
+                    class="inject-input"
+                    lwc:ref="input"
+                    placeholder="Chat Card에 user 메시지로 밀어넣을 내용을 입력하세요…"
+                    oninput={handleInput}
+                    onkeydown={handleKeydown}>
+                </textarea>
+                <div class="composer-footer">
+                    <template if:true={lastSent}>
+                        <span class="last-sent" title={lastSent}>
+                            ✓ 마지막 주입: {lastSent}
+                        </span>
+                    </template>
+                    <lightning-button
+                        variant="brand"
+                        label="Inject"
+                        icon-name="utility:push"
+                        icon-position="right"
+                        onclick={sendDraft}
+                        disabled={sendDisabled}>
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

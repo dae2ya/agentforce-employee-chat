@@ -1,0 +1,92 @@
+<template>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <section class="kpi-card" aria-label="전체 진행 현황">
+                <header class="kpi-header">
+                    <h2>전체 진행 현황</h2>
+                </header>
+                <div class="kpi-percent-row">
+                    <span class="kpi-percent-label">전체 진행률</span>
+                    <span class="kpi-percent-value">{kpi.percent}%</span>
+                </div>
+                <div class="kpi-progress-bar" role="progressbar">
+                    <div class="kpi-progress-fill" style={kpi.percentWidth}></div>
+                </div>
+                <div class="kpi-grid">
+                    <div class="kpi-cell kpi-cell--total">
+                        <span class="kpi-cell-label">전체</span>
+                        <span class="kpi-cell-value">{kpi.total}</span>
+                    </div>
+                    <div class="kpi-cell kpi-cell--done">
+                        <span class="kpi-cell-label">완료</span>
+                        <span class="kpi-cell-value">{kpi.completed}</span>
+                    </div>
+                    <div class="kpi-cell kpi-cell--progress">
+                        <span class="kpi-cell-label">진행중</span>
+                        <span class="kpi-cell-value">{kpi.inProgress}</span>
+                    </div>
+                    <div class="kpi-cell kpi-cell--pending">
+                        <span class="kpi-cell-label">대기</span>
+                        <span class="kpi-cell-value">{kpi.pending}</span>
+                    </div>
+                </div>
+                <footer class="kpi-footer">
+                    마지막 업데이트: {lastUpdatedAt}
+                </footer>
+            </section>
+
+            <nav class="main-menu" aria-label="MAIN MENU">
+                <h3 class="menu-heading">MAIN MENU</h3>
+                <ul class="menu-list">
+                    <template for:each={mainMenu} for:item="m">
+                        <li
+                            key={m.id}
+                            class={m.cssClass}
+                            data-id={m.id}
+                            role="button"
+                            tabindex="0"
+                            onclick={handleMainSelect}
+                            onkeypress={handleMainSelect}>
+                            {m.label}
+                        </li>
+                    </template>
+                </ul>
+            </nav>
+        </aside>
+
+        <nav class="submenu-panel" aria-label={subMenuTitle}>
+            <h3 class="submenu-heading">{subMenuTitle}</h3>
+            <ul class="submenu-list">
+                <template for:each={subMenu} for:item="s">
+                    <li
+                        key={s.id}
+                        class={s.cssClass}
+                        data-id={s.id}
+                        role="button"
+                        tabindex="0"
+                        onclick={handleSubSelect}
+                        onkeypress={handleSubSelect}>
+                        {s.label}
+                    </li>
+                </template>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <header class="content-header">
+                <h1>{contentTitle}</h1>
+            </header>
+            <div class="task-grid">
+                <template for:each={tasks} for:item="t">
+                    <div class="task-card" key={t.id}>
+                        <span class={t.numberClass}>{t.number}</span>
+                        <span class="task-label">{t.label}</span>
+                        <template if:true={t.hasStatus}>
+                            <span class={t.badgeClass}>{t.statusLabel}</span>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </main>
+    </div>
+</template>

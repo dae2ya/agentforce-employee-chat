@@ -1,0 +1,14 @@
+{
+  "required" : [ "opportunityJson" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "opportunityJson" : {
+      "title" : "Opportunity JSON",
+      "description" : "업데이트 정보를 담은 JSON 문자열. opportunityId(필수), contractNumber, servicePeriod, engineerGrade, contractPeriod, maker를 포함합니다. 예: {\"opportunityId\":\"006XX\",\"contractNumber\":\"CNT-001\",\"servicePeriod\":\"12개월\",\"engineerGrade\":\"Senior\",\"contractPeriod\":\"2026-01 ~ 2026-12\",\"maker\":\"홍길동\"}",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

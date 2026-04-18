@@ -1,0 +1,120 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="utility:bot">
+        <div slot="actions" class="header-actions">
+            <span class={sessionBadgeClass} title="현재 Agentforce 세션 상태">
+                {sessionBadgeLabel}
+            </span>
+            <template if:true={sessionId}>
+                <lightning-button-icon
+                    icon-name="utility:copy_to_clipboard"
+                    alternative-text="Copy session id"
+                    title="Copy session id"
+                    variant="bare"
+                    onclick={copySessionId}>
+                </lightning-button-icon>
+            </template>
+            <lightning-button-icon
+                icon-name="utility:refresh"
+                alternative-text="New session"
+                title="New session"
+                variant="bare"
+                onclick={resetSession}>
+            </lightning-button-icon>
+        </div>
+
+        <div class="console-layout">
+            <template if:true={hasQuickActions}>
+                <div class="quick-actions">
+                    <span class="quick-actions-label">Quick Prompts</span>
+                    <div class="quick-actions-row">
+                        <template for:each={quickActions} for:item="qa">
+                            <button
+                                key={qa.id}
+                                type="button"
+                                class="quick-action-btn"
+                                data-message={qa.message}
+                                title={qa.message}
+                                disabled={loading}
+                                onclick={handleQuickAction}>
+                                {qa.label}
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <div class="chat-log slds-scrollable_y slds-p-horizontal_medium">
+                <template if:true={showPlaceholder}>
+                    <div class="placeholder">
+                        위 Quick Prompt 버튼을 눌러 즉시 Agent에 질문을 주입하거나,
+                        하단 입력창에 직접 질문을 입력하세요.
+                        <br />
+                        <span class="placeholder-hint">
+                            Enter = 전송, Shift+Enter = 줄바꿈
+                        </span>
+                    </div>
+                </template>
+
+                <template for:each={messages} for:item="m">
+                    <div key={m.id} class={m.role}>
+                        <template if:true={m.isUser}>
+                            <div class="bubble user">{m.text}</div>
+                        </template>
+                        <template if:true={m.isAgent}>
+                            <div class="bubble agent">{m.text}</div>
+                        </template>
+                        <template if:true={m.isError}>
+                            <div class="bubble error">{m.text}</div>
+                        </template>
+                    </div>
+                </template>
+
+                <template if:true={loading}>
+                    <div class="agent">
+                        <div class="bubble agent typing" role="status" aria-live="polite">
+                            <span class="sr-only">Agent is typing…</span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="composer">
+                <textarea
+                    class="chat-input"
+                    lwc:ref="input"
+                    aria-label="Message"
+                    placeholder="Agent에 보낼 메시지를 입력하세요… (Enter = 전송)"
+                    disabled={loading}
+                    oninput={handleInput}
+                    onkeydown={handleKeydown}>
+                </textarea>
+                <div class="composer-footer">
+                    <div class="composer-status">
+                        <template if:true={loading}>
+                            <span class="loading-hint">
+                                Agent가 답변을 작성 중입니다…
+                            </span>
+                        </template>
+                        <template if:true={contextBadgeVisible}>
+                            <span class="ctx-badge" title={recordId}>
+                                ✓ Record context 포함됨
+                            </span>
+                        </template>
+                        <span class="turn-count">Turns: {turnCount}</span>
+                    </div>
+                    <lightning-button
+                        variant="brand"
+                        label="Send"
+                        icon-name={sendIcon}
+                        icon-position="right"
+                        onclick={sendDraft}
+                        disabled={sendDisabled}>
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

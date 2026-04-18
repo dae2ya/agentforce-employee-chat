@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Agentforce Test Console</masterLabel>
+    <description>관리자/QA 용 Agentforce 대화 테스트 콘솔. 미리 정의된 프롬프트 버튼으로 즉시 메시지 주입.</description>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__Tab</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage">
+            <property
+                name="cardTitle"
+                label="Card Title"
+                type="String"
+                default="Agentforce Test Console"/>
+            <property
+                name="prompts"
+                label="Quick Prompts (한 줄 = 라벨 | 메시지)"
+                type="String"
+                description="각 줄 형식: '라벨 | Agent에게 보낼 메시지'. 파이프(|) 없으면 라벨=메시지."
+                default="📄 내 계약 조회 | 현재 활성 상태인 보험 계약 목록을 요약해줘&#10;⚠️ 리스크 분석 | 보유 계약에서 가장 큰 리스크 요인을 알려줘&#10;💡 상품 추천 | 이 고객에게 적합한 추가 보험 상품을 3개 추천해줘&#10;📊 이번 달 실적 | 이번 달 영업 실적을 간략히 요약해줘"/>
+        </targetConfig>
+        <targetConfig targets="lightning__RecordPage">
+            <property
+                name="cardTitle"
+                label="Card Title"
+                type="String"
+                default="Agentforce Test Console"/>
+            <property
+                name="prompts"
+                label="Quick Prompts (한 줄 = 라벨 | 메시지)"
+                type="String"
+                description="각 줄 형식: '라벨 | Agent에게 보낼 메시지'. 파이프(|) 없으면 라벨=메시지."
+                default="📄 이 레코드 요약 | 이 레코드의 주요 정보를 3줄로 요약해줘&#10;⚠️ 리스크 분석 | 이 레코드와 관련된 리스크 요인을 알려줘&#10;💡 Next Step | 이 레코드에서 다음으로 할 액션을 추천해줘&#10;📊 유사 레코드 | 이 고객과 유사한 사례를 찾아줘"/>
+            <property
+                name="includeRecordContext"
+                label="현재 레코드 컨텍스트 포함"
+                type="Boolean"
+                default="true"
+                description="활성 시 현재 레코드 필드 정보를 Agent에 함께 전달"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SessionId__c</fullName>
+    <description>Optional: inject only into Chat Cards whose current sessionId matches. Blank = any session.</description>
+    <label>Session Id</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

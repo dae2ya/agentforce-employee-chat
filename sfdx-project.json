@@ -1,0 +1,20 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    },
+    {
+      "path": "agentforce-chat-pkg",
+      "default": false,
+      "package": "Agentforce Employee Chat",
+      "versionName": "Initial Release",
+      "versionNumber": "1.0.0.NEXT",
+      "versionDescription": "Agentforce Employee Agent Chat UI, Platform Event inject API, Closing Progress Dashboard"
+    }
+  ],
+  "name": "CDO",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "66.0"
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Opportunity의 계약번호(contract_number__c), 서비스기간(Service_Period__c), 엔지니어등급(Engineer_Grade__c)을 업데이트합니다. opportunityId는 필수이며, 변경할 필드만 포함하면 됩니다.</description>
+    <invocationTarget>OpportunityUpdateAction</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+    <masterLabel>Update Opportunity</masterLabel>
+</GenAiFunction>

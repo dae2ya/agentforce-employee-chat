@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Agentforce_Employee_Agent_ApiName</fullName>
+        <categories>Agentforce</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Agentforce Employee Agent API Name</shortDescription>
+        <value>AEA_for_SEC_DS_Full_Service</value>
+    </labels>
+</CustomLabels>

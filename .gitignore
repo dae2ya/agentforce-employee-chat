@@ -1,0 +1,25 @@
+# Salesforce DX
+.sfdx/
+.sf/
+
+# Node
+node_modules/
+.npm/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/settings.json
+*.swp
+
+# Build artifacts
+agentforce-employee-chat-v*.zip
+/tmp/
+
+# Credentials — never commit
+.env
+*.pem
+*.key

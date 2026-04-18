@@ -1,0 +1,68 @@
+<template>
+    <lightning-modal-header label="Agentforce Employee Agent"></lightning-modal-header>
+
+    <lightning-modal-body>
+        <div class="chat-log slds-scrollable_y" data-log="true">
+            <template if:true={messages.length}>
+                <template for:each={messages} for:item="m">
+                    <div key={m.id} class={m.role} data-role={m.role}>
+                        <template if:true={m.isUser}>
+                            <div class="bubble user">{m.text}</div>
+                        </template>
+                        <template if:true={m.isAgent}>
+                            <div class="bubble agent">{m.text}</div>
+                        </template>
+                        <template if:true={m.isError}>
+                            <div class="bubble error">{m.text}</div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+            <template if:false={messages.length}>
+                <div class="placeholder slds-text-color_weak slds-p-around_medium">
+                    질문을 입력하고 Enter 키(또는 Send 버튼)를 누르세요. 줄바꿈은 Shift+Enter.
+                </div>
+            </template>
+            <template if:true={loading}>
+                <div class="agent">
+                    <div class="bubble agent typing" role="status" aria-live="polite">
+                        <span class="sr-only">Agent is typing…</span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <div class="composer slds-p-around_x-small">
+            <textarea
+                class="chat-input"
+                lwc:ref="input"
+                aria-label="Message"
+                placeholder="질문을 입력하세요… (Enter = 전송, Shift+Enter = 줄바꿈)"
+                disabled={loading}
+                oninput={handleInput}
+                onkeydown={handleKeydown}>
+            </textarea>
+        </div>
+    </lightning-modal-body>
+
+    <lightning-modal-footer>
+        <template if:true={loading}>
+            <span class="slds-text-body_small slds-text-color_weak slds-m-right_small">
+                Agent가 답변을 작성 중입니다…
+            </span>
+        </template>
+        <lightning-button label="Close" onclick={handleClose}></lightning-button>
+        <lightning-button
+            class="slds-m-left_x-small"
+            variant="brand"
+            label="Send"
+            icon-name={sendIcon}
+            icon-position="right"
+            onclick={send}
+            disabled={sendDisabled}>
+        </lightning-button>
+    </lightning-modal-footer>
+</template>

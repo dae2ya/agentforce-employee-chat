@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Ask the Agentforce Employee Agent - pure Screen Flow (option A).</description>
+    <flowDefinition>Ask_Employee_Agent_A</flowDefinition>
+    <label>Ask Employee Agent (A) - Flow Only</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>Ask Employee Agent (A) {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Ask Employee Agent (A) - Flow Only</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <runInMode>DefaultMode</runInMode>
+
+    <variables>
+        <name>UserMessageVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+
+    <actionCalls>
+        <name>CallAgent</name>
+        <label>Call Agent</label>
+        <locationX>176</locationX>
+        <locationY>360</locationY>
+        <actionName>AgentforceEmployeeAgentService</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>userMessage</name>
+            <value>
+                <elementReference>UserMessageVar</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>AgentforceEmployeeAgentService</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <connector>
+            <targetReference>ShowReply</targetReference>
+        </connector>
+    </actionCalls>
+
+    <assignments>
+        <name>AssignUserMessage</name>
+        <label>Assign User Message</label>
+        <locationX>176</locationX>
+        <locationY>240</locationY>
+        <assignmentItems>
+            <assignToReference>UserMessageVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>UserMessage</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>CallAgent</targetReference>
+        </connector>
+    </assignments>
+
+    <screens>
+        <name>AskScreen</name>
+        <label>Ask</label>
+        <locationX>176</locationX>
+        <locationY>120</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Header</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Agentforce Employee Agent&lt;/b&gt;&lt;/p&gt;&lt;p&gt;질문을 입력해 주세요.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>UserMessage</name>
+            <dataType>String</dataType>
+            <fieldText>Message</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <connector>
+            <targetReference>AssignUserMessage</targetReference>
+        </connector>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>ShowReply</name>
+        <label>Agent Reply</label>
+        <locationX>176</locationX>
+        <locationY>480</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>ReplyDisplay</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;Agent 답변&lt;/b&gt;&lt;/p&gt;&lt;p&gt;{!CallAgent.reply}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+
+    <start>
+        <locationX>176</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>AskScreen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

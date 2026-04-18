@@ -1,0 +1,76 @@
+<template>
+    <lightning-card title={cardTitle} icon-name={iconName}>
+        <lightning-button-icon
+            slot="actions"
+            icon-name="utility:refresh"
+            alternative-text="New session"
+            title="New session"
+            variant="bare"
+            onclick={resetSession}>
+        </lightning-button-icon>
+
+        <div class="chat-layout">
+            <div class="chat-log slds-scrollable_y slds-p-horizontal_medium" lwc:ref="body" style={logStyle}>
+                <template if:true={messages.length}>
+                    <template for:each={messages} for:item="m">
+                        <div key={m.id} class={m.role}>
+                            <template if:true={m.isUser}>
+                                <div class="bubble user">{m.text}</div>
+                            </template>
+                            <template if:true={m.isAgent}>
+                                <div class="bubble agent">{m.text}</div>
+                            </template>
+                            <template if:true={m.isError}>
+                                <div class="bubble error">{m.text}</div>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+
+                <template if:true={showPlaceholder}>
+                    <div class="placeholder slds-text-color_weak slds-p-around_medium slds-text-align_center">
+                        질문을 입력하고 Enter 키(또는 Send 버튼)를 누르세요. 줄바꿈은 Shift+Enter.
+                    </div>
+                </template>
+
+                <template if:true={loading}>
+                    <div class="agent">
+                        <div class="bubble agent typing" role="status" aria-live="polite">
+                            <span class="sr-only">Agent is typing…</span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="composer">
+                <textarea
+                    class="chat-input"
+                    lwc:ref="input"
+                    aria-label="Message"
+                    placeholder="질문을 입력하세요… (Enter = 전송, Shift+Enter = 줄바꿈)"
+                    disabled={loading}
+                    oninput={handleInput}
+                    onkeydown={handleKeydown}>
+                </textarea>
+                <div class="composer-actions slds-m-top_x-small slds-grid slds-grid_align-end slds-grid_vertical-align-center">
+                    <template if:true={loading}>
+                        <span class="slds-text-body_small slds-text-color_weak slds-m-right_small">
+                            Agent가 답변을 작성 중입니다…
+                        </span>
+                    </template>
+                    <lightning-button
+                        variant="brand"
+                        label="Send"
+                        icon-name={sendIcon}
+                        icon-position="right"
+                        onclick={send}
+                        disabled={sendDisabled}>
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

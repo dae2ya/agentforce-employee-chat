@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Upload and analyze an insurance policy contract</description>
+    <flowDefinition>Upload_and_Analyze_an_Insurance_policy</flowDefinition>
+    <label>Upload Contract</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

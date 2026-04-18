@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Employee Agent Chat</masterLabel>
+    <description>Embedded chat panel that talks to the Agentforce Employee Agent.</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage,lightning__HomePage">
+            <property
+                name="cardTitle"
+                type="String"
+                label="Card Title"
+                default="Agentforce Employee Agent"
+                description="Header text shown at the top of the card." />
+            <property
+                name="iconName"
+                type="String"
+                label="Icon Name"
+                default="utility:einstein"
+                description="SLDS icon shown in the card header (e.g. utility:einstein)." />
+            <property
+                name="initialMessage"
+                type="String"
+                label="Initial Message"
+                description="Optional message sent automatically when the component loads (requires Auto Start)." />
+            <property
+                name="autoStart"
+                type="Boolean"
+                label="Auto Start"
+                default="false"
+                description="Automatically send the initial message on load." />
+            <property
+                name="includeRecordContext"
+                type="Boolean"
+                label="Include Record Context"
+                default="false"
+                description="Prefix each message with the current recordId so the agent knows which record the user is on." />
+            <property
+                name="maxHeight"
+                type="Integer"
+                label="Chat Area Max Height (px)"
+                default="480"
+                description="Maximum height of the scrollable chat area in pixels." />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

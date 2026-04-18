@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Employee Agent Chat Injector</masterLabel>
+    <description>같은 페이지의 Employee Agent Chat Card에 user 메시지를 주입하는 버튼 팔레트</description>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage,lightning__RecordPage">
+            <property
+                name="cardTitle"
+                label="Card Title"
+                type="String"
+                default="Chat Message Injector"/>
+            <property
+                name="targetCardTitle"
+                label="Target Chat Card Title (비워두면 모든 Chat Card에 브로드캐스트)"
+                type="String"
+                default=""/>
+            <property
+                name="prompts"
+                label="Quick Prompts (한 줄 = 라벨 | 메시지)"
+                type="String"
+                description="각 줄 형식: '라벨 | Chat Card에 주입할 메시지'. 파이프(|) 생략 시 라벨=메시지."
+                default="✅ 결산 마감 수행완료 | 요청하신 결산마감 수행이 완료되었습니다. | agent&#10;🚨 마감 수행중 에러 발생 | 마감 수행중 에러가 발생하였습니다. 에러 코드는 OOOOO 입니다. | error"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

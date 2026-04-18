@@ -1,0 +1,193 @@
+/* Overall progress - percent emphasis */
+.progress-percent {
+    font-weight: 700;
+}
+
+/* Phase list - selected state */
+.phase-item {
+    transition: background-color 0.2s ease;
+}
+
+.phase-item:hover {
+    background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+}
+
+.phase-item_selected {
+    background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+}
+
+.phase-item:focus {
+    outline: 2px solid var(--slds-g-color-brand-base-50, #0176d3);
+    outline-offset: 2px;
+}
+
+/* Status dots - legend */
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.status-dot_completed {
+    background-color: var(--slds-g-color-success-base-50, #2e844a);
+}
+
+.status-dot_in-progress {
+    background-color: var(--slds-g-color-brand-base-50, #0176d3);
+}
+
+.status-dot_pending {
+    background-color: var(--slds-g-color-neutral-base-50, #706e6b);
+}
+
+.status-dot_error {
+    background-color: var(--slds-g-color-error-base-50, #ba0517);
+}
+
+/* Task grid - two columns, column-first flow (1-01~1-10 | 1-11~1-20) */
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(10, auto);
+    grid-auto-flow: column;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+}
+
+@media (max-width: 768px) {
+    .task-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: unset;
+        grid-auto-flow: row;
+    }
+}
+
+/* Task item - timeline/stepper */
+.task-item-wrapper {
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+}
+
+.task-item-wrapper:last-child {
+    border-bottom: none;
+}
+
+.task-item {
+    position: relative;
+}
+
+.task-timeline {
+    position: relative;
+    flex-shrink: 0;
+    width: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.task-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -50%;
+    bottom: -50%;
+    width: 2px;
+    margin-left: -1px;
+    background-color: var(--slds-g-color-border-base-1, #e5e5e5);
+}
+
+.status-indicator {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-indicator_completed {
+    background-color: var(--slds-g-color-success-base-50, #2e844a);
+}
+
+.status-indicator_in-progress {
+    background-color: var(--slds-g-color-brand-base-50, #0176d3);
+}
+
+.status-indicator_pending {
+    background-color: var(--slds-g-color-neutral-base-50, #706e6b);
+}
+
+.status-indicator_error {
+    background-color: var(--slds-g-color-error-base-50, #ba0517);
+}
+
+/* Task badge */
+.task-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.task-badge_completed {
+    background-color: var(--slds-g-color-success-base-95, #e8f5e9);
+    color: var(--slds-g-color-success-base-30, #1b5e20);
+}
+
+.task-badge_in-progress {
+    background-color: var(--slds-g-color-brand-base-95, #e5f2fc);
+    color: var(--slds-g-color-brand-base-30, #014486);
+}
+
+.task-badge_pending {
+    background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+    color: var(--slds-g-color-neutral-base-30, #3e3e3c);
+}
+
+.task-badge_error {
+    background-color: var(--slds-g-color-error-base-95, #fef3f2);
+    color: var(--slds-g-color-error-base-30, #8b0000);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.task-badge_error:hover {
+    opacity: 0.85;
+}
+
+.task-badge_error:focus {
+    outline: 2px solid var(--slds-g-color-brand-base-50, #0176d3);
+    outline-offset: 2px;
+}
+
+/* Task ID typography */
+.task-id {
+    font-size: 0.8125rem;
+    color: var(--slds-g-color-neutral-base-30, #3e3e3c);
+}
+
+/* Task content - flex layout for badge alignment */
+.task-content {
+    min-width: 0;
+}
+
+.task-badge-container {
+    flex-shrink: 0;
+}
+
+/* Error message panel */
+.error-message-panel {
+    animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Agentforce Chat Inject</masterLabel>
+    <isExposed>true</isExposed>
+    <description>Inject user-side messages into a running Employee Agent Chat Card instance</description>
+    <lightningMessageFields>
+        <fieldName>message</fieldName>
+        <description>The text to inject as a user message into the chat</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>targetCardTitle</fieldName>
+        <description>Optional: only Chat Card instances whose cardTitle matches will respond. Leave blank to broadcast.</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>sourceId</fieldName>
+        <description>Optional: identifier of the publisher component for debugging</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>role</fieldName>
+        <description>Bubble role: agent (default, no Agent API call) | user (triggers Agent API) | error</description>
+    </lightningMessageFields>
+</LightningMessageChannel>
