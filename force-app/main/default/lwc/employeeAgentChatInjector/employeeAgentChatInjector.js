@@ -8,7 +8,7 @@ import AGENTFORCE_CHAT_INJECT from '@salesforce/messageChannel/AgentforceChatInj
  * role 명시 시 → 해당 버튼은 항상 지정된 role로 동작
  */
 const DEFAULT_PROMPTS = [
-    '✅ 결산 마감 수행완료 | 요청하신 결산마감 수행이 완료되었습니다. | agent',
+    '✅ 결산 마감 수행완료 | 요청하신 결산마감 수행이 완료되었습니다. | success',
     '🚨 마감 수행중 에러 발생 | 마감 수행중 에러가 발생하였습니다. 에러 코드는 OOOOO 입니다. | error'
 ].join('\n');
 
@@ -52,7 +52,7 @@ export default class EmployeeAgentChatInjector extends LightningElement {
 
     get quickActions() {
         const lines = (this.prompts || '').split(/\r?\n/);
-        const VALID = new Set(['agent', 'user', 'error']);
+        const VALID = new Set(['agent', 'user', 'error', 'success']);
         const out = [];
         for (const line of lines) {
             const trimmed = line.trim();
@@ -77,6 +77,7 @@ export default class EmployeeAgentChatInjector extends LightningElement {
     btnClass(role) {
         if (role === 'error') return 'quick-action-btn quick-action-btn--error';
         if (role === 'user') return 'quick-action-btn quick-action-btn--user';
+        if (role === 'success') return 'quick-action-btn quick-action-btn--success';
         return 'quick-action-btn';
     }
 

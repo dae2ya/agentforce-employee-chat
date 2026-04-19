@@ -123,6 +123,20 @@
     color: #1e40af;
 }
 
+/* Success role 버튼 — 초록 계열 */
+.quick-action-btn--success {
+    background: #f0fdf4;
+    border-color: #86efac;
+    color: #15803d;
+    font-weight: 600;
+}
+
+.quick-action-btn--success:hover {
+    background: #dcfce7;
+    border-color: #4ade80;
+    color: #14532d;
+}
+
 /* ---------- Composer ---------- */
 .composer {
     display: block;

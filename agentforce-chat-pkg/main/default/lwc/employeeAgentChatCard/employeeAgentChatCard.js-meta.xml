@@ -15,7 +15,7 @@
                 name="cardTitle"
                 type="String"
                 label="Card Title"
-                default="Agentforce Employee Agent"
+                default="DS Agentic Office Agent"
                 description="Header text shown at the top of the card." />
             <property
                 name="iconName"

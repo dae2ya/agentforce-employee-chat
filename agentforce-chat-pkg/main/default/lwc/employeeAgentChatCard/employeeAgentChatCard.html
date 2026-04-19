@@ -13,15 +13,43 @@
             <div class="chat-log slds-scrollable_y slds-p-horizontal_medium" lwc:ref="body" style={logStyle}>
                 <template if:true={messages.length}>
                     <template for:each={messages} for:item="m">
-                        <div key={m.id} class={m.role}>
+                        <div key={m.id} class={m.rowClass}>
                             <template if:true={m.isUser}>
-                                <div class="bubble user">{m.text}</div>
+                                <div class="bubble-row bubble-row--user">
+                                    <div class="bubble user">{m.text}</div>
+                                    <span class="avatar avatar--user" aria-label="User">
+                                        <template if:true={userHasPhoto}>
+                                            <img class="avatar-photo" src={userPhotoUrl} alt="User" />
+                                        </template>
+                                        <template if:false={userHasPhoto}>
+                                            <lightning-icon icon-name="utility:user" size="x-small" class="avatar-icon--user"></lightning-icon>
+                                        </template>
+                                    </span>
+                                </div>
                             </template>
                             <template if:true={m.isAgent}>
-                                <div class="bubble agent">{m.text}</div>
+                                <div class="bubble-row bubble-row--agent">
+                                    <span class="avatar avatar--agent" aria-label="Agent">
+                                        <lightning-icon icon-name="utility:einstein" size="small"></lightning-icon>
+                                    </span>
+                                    <div class="bubble agent">{m.text}</div>
+                                </div>
                             </template>
                             <template if:true={m.isError}>
-                                <div class="bubble error">{m.text}</div>
+                                <div class="bubble-row bubble-row--agent">
+                                    <span class="avatar avatar--agent" aria-label="Agent">
+                                        <lightning-icon icon-name="utility:einstein" size="small"></lightning-icon>
+                                    </span>
+                                    <div class="bubble error">{m.text}</div>
+                                </div>
+                            </template>
+                            <template if:true={m.isSuccess}>
+                                <div class="bubble-row bubble-row--agent">
+                                    <span class="avatar avatar--agent" aria-label="Agent">
+                                        <lightning-icon icon-name="utility:einstein" size="small"></lightning-icon>
+                                    </span>
+                                    <div class="bubble success">{m.text}</div>
+                                </div>
                             </template>
                         </div>
                     </template>
@@ -34,7 +62,10 @@
                 </template>
 
                 <template if:true={loading}>
-                    <div class="agent">
+                    <div class="bubble-row bubble-row--agent">
+                        <span class="avatar avatar--agent" aria-label="Agent">
+                            <lightning-icon icon-name="utility:einstein" size="small"></lightning-icon>
+                        </span>
                         <div class="bubble agent typing" role="status" aria-live="polite">
                             <span class="sr-only">Agent is typing…</span>
                             <span class="dot"></span>

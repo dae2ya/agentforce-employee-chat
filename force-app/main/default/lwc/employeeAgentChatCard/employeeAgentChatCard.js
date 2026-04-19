@@ -5,12 +5,16 @@ import {
     unsubscribe as empUnsubscribe,
     onError as empOnError
 } from 'lightning/empApi';
+import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import USER_ID from '@salesforce/user/Id';
+import USER_PHOTO from '@salesforce/schema/User.SmallPhotoUrl';
+import USER_NAME from '@salesforce/schema/User.Name';
 import AGENTFORCE_CHAT_INJECT from '@salesforce/messageChannel/AgentforceChatInject__c';
 import sendMessage from '@salesforce/apex/AgentforceEmployeeAgentService.sendMessage';
 import sendMessageWithContext from '@salesforce/apex/AgentforceEmployeeAgentService.sendMessageWithContext';
 
 const PLATFORM_EVENT_CHANNEL = '/event/AgentforceChatInject__e';
-const VALID_ROLES = new Set(['agent', 'user', 'error']);
+const VALID_ROLES = new Set(['agent', 'user', 'error', 'success']);
 
 function normalizeRole(raw) {
     if (!raw) return 'agent';
@@ -20,7 +24,7 @@ function normalizeRole(raw) {
 
 export default class EmployeeAgentChatCard extends LightningElement {
     @api recordId;
-    @api cardTitle = 'Agentforce Employee Agent';
+    @api cardTitle = 'DS Agentic Office Agent';
     @api iconName = 'utility:einstein';
     @api initialMessage = '';
     @api maxHeight = 480;
@@ -36,8 +40,25 @@ export default class EmployeeAgentChatCard extends LightningElement {
     _empSubscription;
     _injectQueue = [];
 
+    userId = USER_ID;
+
     @wire(MessageContext)
     messageContext;
+
+    @wire(getRecord, { recordId: '$userId', fields: [USER_PHOTO, USER_NAME] })
+    currentUser;
+
+    get userPhotoUrl() {
+        const url = getFieldValue(this.currentUser?.data, USER_PHOTO);
+        if (!url) return null;
+        // SmallPhotoUrl이 상대경로일 경우 절대경로로 보정
+        if (url.startsWith('http')) return url;
+        return url;
+    }
+
+    get userHasPhoto() {
+        return !!this.userPhotoUrl;
+    }
 
     connectedCallback() {
         this.subscribeToInjectChannel();
@@ -126,7 +147,8 @@ export default class EmployeeAgentChatCard extends LightningElement {
             this.enqueueUserInject(msg);
             return;
         }
-        this.appendMessage(role === 'error' ? 'error' : 'agent', msg);
+        const bubbleRole = (role === 'error' || role === 'success') ? role : 'agent';
+        this.appendMessage(bubbleRole, msg);
         this.scrollToBottom();
     }
 
@@ -235,10 +257,12 @@ export default class EmployeeAgentChatCard extends LightningElement {
             {
                 id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
                 role,
+                rowClass: `msg-row msg-row--${role}`,
                 text,
                 isUser: role === 'user',
                 isAgent: role === 'agent',
-                isError: role === 'error'
+                isError: role === 'error',
+                isSuccess: role === 'success'
             }
         ];
     }

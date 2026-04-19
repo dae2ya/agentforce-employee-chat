@@ -8,9 +8,9 @@
       "path": "agentforce-chat-pkg",
       "default": false,
       "package": "Agentforce Employee Chat",
-      "versionName": "Initial Release",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "Agentforce Employee Agent Chat UI, Platform Event inject API, Closing Progress Dashboard"
+      "versionName": "v1.1.0 — UX Enhancement",
+      "versionNumber": "1.1.0.NEXT",
+      "versionDescription": "User profile photo avatar, success/error bubble roles, icon size +20%, DS Agentic Office Agent title, quick prompt role support"
     }
   ],
   "name": "CDO",
@@ -19,6 +19,7 @@
   "sourceApiVersion": "66.0",
   "packageAliases": {
     "Agentforce Employee Chat": "0HoIT000000blSu0AI",
-    "Agentforce Employee Chat@1.0.0-1": "04tIT000001ONqNYAW"
+    "Agentforce Employee Chat@1.0.0-1": "04tIT000001ONqNYAW",
+    "Agentforce Employee Chat@1.1.0-1": "04tIT000001ONqSYAW"
   }
 }

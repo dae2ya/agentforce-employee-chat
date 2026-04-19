@@ -2,12 +2,28 @@
 
 Salesforce Agentforce Employee Agent 기반 Chat UI 컴포넌트 모음.
 
-## 🚀 원클릭 설치 (Unlocked Package v1.0.0)
+## 🚀 원클릭 설치
+
+### ✅ v1.1.0 — UX Enhancement (최신)
 
 | 환경 | 링크 |
 |------|------|
-| **Production / Developer Org** | [▶ Install](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tIT000001ONqNYAW) |
-| **Sandbox** | [▶ Install (Sandbox)](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tIT000001ONqNYAW) |
+| **Production / Developer Org** | [▶ Install v1.1.0](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tIT000001ONqSYAW) |
+| **Sandbox** | [▶ Install v1.1.0 (Sandbox)](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tIT000001ONqSYAW) |
+
+변경 사항:
+- 사용자 프로필 사진 아바타 (SmallPhotoUrl, 미설정시 기본 아이콘 폴백)
+- `success` 역할 초록 버블 추가 ("결산 마감 수행완료")
+- 챗 제목 → **DS Agentic Office Agent**
+- 아바타/아이콘 크기 20% 확대
+- 퀵 프롬프트 역할(`role`) 지원 (`agent` / `user` / `error` / `success`)
+
+### v1.0.0 — Initial Release
+
+| 환경 | 링크 |
+|------|------|
+| **Production / Developer Org** | [▶ Install v1.0.0](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tIT000001ONqNYAW) |
+| **Sandbox** | [▶ Install v1.0.0 (Sandbox)](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tIT000001ONqNYAW) |
 
 설치 후 안내: [`agentforce-chat-pkg/README.md`](agentforce-chat-pkg/README.md)
 
@@ -40,6 +56,6 @@ curl -X POST "https://YOUR_DOMAIN.my.salesforce.com/services/apexrest/agentforce
   -d '{"message": "요청하신 결산마감 수행이 완료되었습니다.", "role": "agent"}'
 ```
 
-`role`: `agent`(기본, API 호출 없음) | `user`(Agent 응답 트리거) | `error`(빨간 버블)
+`role`: `agent`(기본, API 호출 없음) | `user`(Agent 응답 트리거) | `error`(빨간 버블) | `success`(초록 버블)
 
 자세한 내용: [agentforce-chat-pkg/README.md](agentforce-chat-pkg/README.md)

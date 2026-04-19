@@ -26,7 +26,7 @@
                 label="Quick Prompts (한 줄 = 라벨 | 메시지)"
                 type="String"
                 description="각 줄 형식: '라벨 | Chat Card에 주입할 메시지'. 파이프(|) 생략 시 라벨=메시지."
-                default="✅ 결산 마감 수행완료 | 요청하신 결산마감 수행이 완료되었습니다. | agent&#10;🚨 마감 수행중 에러 발생 | 마감 수행중 에러가 발생하였습니다. 에러 코드는 OOOOO 입니다. | error"/>
+                default="✅ 결산 마감 수행완료 | 요청하신 결산마감 수행이 완료되었습니다. | success&#10;🚨 마감 수행중 에러 발생 | 마감 수행중 에러가 발생하였습니다. 에러 코드는 OOOOO 입니다. | error"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
